@@ -27,14 +27,27 @@ File/folder format options listed [here.](https://docs.rs/chrono/latest/chrono/f
 - start
 - run
 - type in `shell:startup`
-- place shortcut to mgcapture.exe in this folder
+- place shortcut to `mgcapture.exe` in this folder
 
 ### Linux
 
-- install the following packages: `sudo apt install libxcb1-dev libxrandr2 libdbus-1-dev`
-- copy `mgcapture` to `$HOME/Desktop/screenshots` (or wherever)
-- `crontab -e`
-- add the line: `@reboot cd $HOME/Desktop/screenshots && ./mgcapture`
+- install dependencies
+
+```
+sudo apt install libxcb1-dev libxrandr2 libdbus-1-dev
+
+```
+
+- copy `mgcapture` to `/home/user/Desktop/screenshots`
+- create a run script `/home/user/Desktop/screenshots/run.sh`:
+
+```
+cd /home/user/Desktop/screenshots && ./mgcapture
+```
+
+- the following may vary depending on OS (tested on Pop!\_OS)
+  - open "Startup Application Preferences"
+  - add new command: `/home/user/Desktop/screenshots/run.sh`
 
 ## Compiling
 
