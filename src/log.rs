@@ -1,5 +1,6 @@
-use std::fs::OpenOptions;
+use std::fs::{self, OpenOptions};
 use std::io::prelude::*;
+use std::path;
 
 static LOG_FILE_NAME: &str = "mgcapture.log";
 
@@ -19,8 +20,8 @@ pub fn info(msg: &str) {
     println!("{}", message);
 
     // create file if not exists
-    if !std::path::Path::new(LOG_FILE_NAME).exists() {
-        std::fs::File::create(LOG_FILE_NAME).expect("Failed to create log file");
+    if !path::Path::new(LOG_FILE_NAME).exists() {
+        fs::File::create(LOG_FILE_NAME).expect("Failed to create log file");
     }
 
     // read file

@@ -1,6 +1,8 @@
 // causes windows exe to run in the background
 #![windows_subsystem = "windows"]
 
+use std::{fs, path, thread, time};
+
 use screenshots::Screen;
 
 mod config;
@@ -12,7 +14,7 @@ fn main() {
     loop {
         capture_screens(&config);
         log::info("Screen capture done. Waiting for next interval.");
-        std::thread::sleep(std::time::Duration::from_secs(config.interval_seconds));
+        thread::sleep(time::Duration::from_secs(config.interval_seconds));
     }
 }
 
@@ -31,13 +33,13 @@ fn capture_screens(config: &config::Config) {
                 Some(image) => {
                     let buffer = image.buffer();
 
-                    let path = std::path::Path::new(config.output_directory.as_str())
-                        .join(folder_name.clone());
+                    let path =
+                        path::Path::new(config.output_directory.as_str()).join(folder_name.clone());
                     let file_path = path.join(format!("{}-{}.png", file_name, index));
 
                     log::info(file_path.as_os_str().to_str().unwrap());
-                    match std::fs::create_dir_all(path.into_os_string()) {
-                        Ok(_) => match std::fs::write(file_path.into_os_string(), &buffer) {
+                    match fs::create_dir_all(path.into_os_string()) {
+                        Ok(_) => match fs::write(file_path.into_os_string(), &buffer) {
                             Ok(_) => {
                                 log::info(
                                     format!("Saved screenshot for screen {}.", index).as_str(),
