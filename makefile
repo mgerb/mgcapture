@@ -7,4 +7,4 @@ build-windows:
 build:
 	cargo build -r
 
-all: clean build build-windows
+all: build build-windows

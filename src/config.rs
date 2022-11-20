@@ -20,6 +20,10 @@ fn default_folder_format() -> String {
     "%Y-%m-%d".to_string()
 }
 
+fn default_image_quality() -> u8 {
+    80
+}
+
 #[derive(Serialize, Deserialize)]
 pub struct Config {
     #[serde(default = "default_output_directory")]
@@ -33,6 +37,9 @@ pub struct Config {
 
     #[serde(default = "default_file_format")]
     pub file_format: string::String,
+
+    #[serde(default = "default_image_quality")]
+    pub image_quality: u8,
 }
 
 impl Config {
@@ -58,6 +65,7 @@ impl Config {
             interval_seconds: default_interval_seconds(),
             folder_format: default_folder_format(),
             file_format: default_file_format(),
+            image_quality: default_image_quality(),
         };
 
         if let Ok(config_file) = config_file {
